@@ -1,0 +1,28 @@
+//*mixins*//
+@import "./mixin.scss";
+
+.container{
+  max-width: 1340px;
+  width: 100%;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  margin: 0 auto;
+  @include notebook {
+    max-width: 1160px;
+  }
+  @include tablet {
+    max-width: 980px;
+  }
+  @include mobile {
+    max-width: 740;
+  }
+  @include mobile-sm{
+    max-width: 560px;
+  }
+}
+.container-fluid{
+  width: 100%;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  margin: 0 auto;
+}

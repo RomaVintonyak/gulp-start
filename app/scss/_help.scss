@@ -1,0 +1,46 @@
+//*mixins*//
+@import "./var.scss";
+//*mixins*//
+@import "./mixin.scss"; 
+
+.img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+.text__left {
+  text-align: left;
+}
+.text__right {
+  text-align: right;
+}
+.text__center {
+  text-align: center;
+}
+.mt-6 {
+  margin-top: 6rem;
+  @include tablet {
+    margin-top: 4rem;
+  }
+  @include mobile {
+    margin-top: 2rem;
+  }
+}
+.mt-5 {
+  margin-top: 5rem;
+}
+.mt-4 {
+  margin-top: 4rem;
+  @include mobile {
+    margin-top: 2rem;
+  }
+}
+.mt-3 {
+  margin-top: 3rem;
+}
+.mt-2 {
+  margin-top: 2rem;
+  @include tablet{
+    margin-top: 1rem;
+  }
+}
