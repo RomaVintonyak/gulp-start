@@ -1,0 +1,82 @@
+//*mixins*//
+@import "./mixin.scss";
+
+
+/*test block*/
+.header{
+  width: 100%;
+  height: 8vh;
+  background-color: rgba(8, 68, 231, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.nav__menu{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  &--main{
+    list-style-type: none;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    li{
+      margin-right: 2rem;
+      position: relative;
+      &:last-child{
+        margin-right: 0;
+      }
+      &::after{
+        content: "";
+        width: 0;
+        height: 3px;
+        background-color: black;
+        position: absolute;
+        bottom: -0.4rem;
+        left: 0;
+        transition: 0.3s ease-in-out;
+      }
+      &:hover{
+        &::after{
+          width: 100%;
+        }
+      }
+      a{
+        text-decoration: none;
+        font-size: 2rem;
+        color: black;
+        font-weight: 600;
+      }
+    }
+  }
+  &--social{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    list-style-type: none;
+    justify-content: end;
+    li{
+      margin-left: 2rem;
+      &:first-child{
+        margin-left: 0;
+      }
+      a {
+        text-decoration: none;
+        i{
+          color: red;
+          font-size: 2rem;
+          transition: color, linear, 0.3s;
+        }
+      }
+      &:hover{
+        a{
+          i{
+            color: black;
+          }
+        }
+      }
+    }
+  }
+}

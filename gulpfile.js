@@ -1,13 +1,13 @@
-var gulp          = require('gulp');
-var sass          = require('gulp-sass');
-var sourcemaps    = require('gulp-sourcemaps');
-var autoprefixer  = require('gulp-autoprefixer');
-var rename        = require('gulp-rename');
-var cssbeautify   = require('gulp-cssbeautify');
-var browserSync   = require('browser-sync').create();
-var minify        = require('gulp-minify');
+var gulp = require('gulp');
+var sass = require('gulp-sass');
+var sourcemaps = require('gulp-sourcemaps');
+var autoprefixer = require('gulp-autoprefixer');
+var rename = require('gulp-rename');
+var cssbeautify = require('gulp-cssbeautify');
+var browserSync = require('browser-sync').create();
+var minify = require('gulp-minify');
 
-function css_style(done){
+function css_style(done) {
   /* minifi css */
   gulp.src('./app/scss/**/*.scss')
     .pipe(sourcemaps.init())
@@ -19,7 +19,7 @@ function css_style(done){
     .pipe(autoprefixer({
       cascade: false
     }))
-    .pipe(rename({suffix: '.min'}))
+    .pipe(rename({ suffix: '.min' }))
     .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest('./app/css/'));
   done();
@@ -27,7 +27,7 @@ function css_style(done){
   gulp.src('./app/scss/**/*.scss')
     .pipe(sass({
       errorLogToConsole: true,
-      outputStyle: 'expanded' 
+      outputStyle: 'expanded'
     }))
     .on('error', console.error.bind(console))
     .pipe(autoprefixer({
@@ -38,8 +38,9 @@ function css_style(done){
     .pipe(browserSync.stream());
   done();
 }
-function jsMinify(){
-  gulp.src('./app/js/*.js')
+/*work with js */
+function js_minify(done){
+  gulp.src('./app/js_src/*.js')
   .pipe(minify({
     errorLogToConsole: true,
     ext: {
@@ -48,10 +49,11 @@ function jsMinify(){
     ignoreFiles: ['-min.js']
     }))
     .on('error', console.error.bind(console))
-    .pipe(gulp.dest('./app/js/'))
+    .pipe(gulp.dest('./app/js'))
   done();
 }
-function Sync(done){
+/*start template*/
+function Sync(done) {
   browserSync.init({
     server: {
       baseDir: "./app/"
@@ -60,16 +62,19 @@ function Sync(done){
   });
   done();
 }
-function browserReload(done){
+/*reload func*/
+function browserReload(done) {
   browserSync.reload();
   done();
 }
-function watchFiles(){
+/*watch files*/
+function watchFiles() {
   gulp.watch('./app/scss/**/*', css_style);
   gulp.watch('./app/scss/**/*', browserReload);
   gulp.watch('./app/pages/**/*', browserReload);
   gulp.watch('./app/**/*.html', browserReload);
-  gulp.watch('./app/js/main.js', jsMinify);
-  //gulp.watch('./app/js/**/*', browserReload);
+  gulp.watch('./app/js_src/*.js', js_minify);
+  gulp.watch('./app/js_src/*.js', browserReload);
 }
+/*start gulp*/
 gulp.task('default', gulp.parallel(Sync, watchFiles));

@@ -317,3 +317,90 @@ a:focus {
     padding-right: 1rem;
     margin: 0 auto;
 }
+
+/*header*/
+/*test block*/
+.header {
+    width: 100%;
+    height: 8vh;
+    background-color: rgba(8, 68, 231, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav__menu {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav__menu--main {
+    list-style-type: none;
+    width: 50%;
+    height: 100%;
+    display: flex;
+}
+
+.nav__menu--main li {
+    margin-right: 2rem;
+    position: relative;
+}
+
+.nav__menu--main li:last-child {
+    margin-right: 0;
+}
+
+.nav__menu--main li::after {
+    content: "";
+    width: 0;
+    height: 3px;
+    background-color: black;
+    position: absolute;
+    bottom: -0.4rem;
+    left: 0;
+    transition: 0.3s ease-in-out;
+}
+
+.nav__menu--main li:hover::after {
+    width: 100%;
+}
+
+.nav__menu--main li a {
+    text-decoration: none;
+    font-size: 2rem;
+    color: black;
+    font-weight: 600;
+}
+
+.nav__menu--social {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    list-style-type: none;
+    justify-content: end;
+}
+
+.nav__menu--social li {
+    margin-left: 2rem;
+}
+
+.nav__menu--social li:first-child {
+    margin-left: 0;
+}
+
+.nav__menu--social li a {
+    text-decoration: none;
+}
+
+.nav__menu--social li a i {
+    color: red;
+    font-size: 2rem;
+    transition: color, linear, 0.3s;
+}
+
+.nav__menu--social li:hover a i {
+    color: black;
+}
