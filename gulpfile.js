@@ -6,6 +6,12 @@ var rename = require('gulp-rename');
 var cssbeautify = require('gulp-cssbeautify');
 var browserSync = require('browser-sync').create();
 var minify = require('gulp-minify');
+var del = require('del');
+/*const imagemin = require('gulp-imagemin');*/
+const { src } = require('gulp');
+const { dest } = require('gulp');
+const { parallel } = require('gulp');
+const { series } = require('gulp');
 
 function css_style(done) {
   /* minifi css */
@@ -39,14 +45,14 @@ function css_style(done) {
   done();
 }
 /*work with js */
-function js_minify(done){
+function js_minify(done) {
   gulp.src('./app/js_src/*.js')
-  .pipe(minify({
-    errorLogToConsole: true,
-    ext: {
+    .pipe(minify({
+      errorLogToConsole: true,
+      ext: {
         min: '.min.js'
-    },
-    ignoreFiles: ['-min.js']
+      },
+      ignoreFiles: ['-min.js']
     }))
     .on('error', console.error.bind(console))
     .pipe(gulp.dest('./app/js'))
@@ -76,5 +82,57 @@ function watchFiles() {
   gulp.watch('./app/js_src/*.js', js_minify);
   gulp.watch('./app/js_src/*.js', browserReload);
 }
+
+
+
+
+/*minifi images*/
+function images() {
+  return src('app/img/**/*')
+    .pipe(imagemin(
+      [
+        imagemin.gifsicle({ interlaced: true }),
+        imagemin.mozjpeg({ quality: 75, progressive: true }),
+        imagemin.optipng({ optimizationLevel: 5 }),
+        imagemin.svgo({
+          plugins: [
+            { removeViewBox: true },
+            { cleanupIDs: false }
+          ]
+        })
+      ]
+    ))
+    .pipe(dest('dist/img'))
+}
+
+
+
+/*clear*/
+function clearDist(){
+  return del('dist')
+}
+/*build project*/
+function build() {
+  return src([
+    'app/css/style.min.css',
+    'app/font/**/*',
+    'app/img/**/*',
+    'app/js/main.min.js',
+    'app/js/vendor/**/*',
+    'app/*.html',
+    'app/pages/**/*'
+  ], { base: 'app' })
+    .pipe(dest('dist'))
+}
+
+exports.css_style = css_style;
+exports.js_minify = js_minify;
+exports.Sync = Sync;
+exports.watchFiles = watchFiles;
+/*exports.images = images;*/
+exports.clearDist = clearDist;
+/*build prejoct*/
+exports.build = series(clearDist, build);
 /*start gulp*/
 gulp.task('default', gulp.parallel(Sync, watchFiles));
+
